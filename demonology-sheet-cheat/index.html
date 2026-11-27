@@ -1,283 +1,55 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Demonology - Tool</title>
-
 <style>
-:root{
-  --bg:#14101c;
-  --panel:#201a2e;
-  --card:#2b2340;
-  --line:#4a3d6b;
-  --text:#ece8f5;
-  --mute:#9a90b3;
-  --ok:#7be0a0;
-  --no:#ff6b7a;
-  --acc:#b794f6
-}
-
+:root{--bg:#14101c;--panel:#201a2e;--card:#2b2340;--line:#4a3d6b;--text:#ece8f5;--mute:#9a90b3;--ok:#7be0a0;--no:#ff6b7a;--acc:#b794f6}
 *{box-sizing:border-box}
-
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font:15px/1.4 Georgia,"Times New Roman",serif
-}
-
-.top{
-  display:flex;
-  justify-content:flex-end;
-  max-width:1500px;
-  margin:auto;
-  padding:12px 16px 0
-}
-
-.lang{
-  display:flex;
-  gap:8px
-}
-
-.flag{
-  width:38px;
-  height:26px;
-  padding:0;
-  border:2px solid transparent;
-  border-radius:5px;
-  overflow:hidden;
-  background:none;
-  cursor:pointer;
-  opacity:.55
-}
-
-.flag svg{
-  display:block;
-  width:100%;
-  height:100%
-}
-
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.4 Georgia,"Times New Roman",serif}
+.top{display:flex;justify-content:flex-end;max-width:1500px;margin:auto;padding:12px 16px 0}
+.lang{display:flex;gap:8px}
+.flag{width:38px;height:26px;padding:0;border:2px solid transparent;border-radius:5px;overflow:hidden;background:none;cursor:pointer;opacity:.55}
+.flag svg{display:block;width:100%;height:100%}
 .flag:hover{opacity:1}
 .flag.on{opacity:1;border-color:var(--acc)}
-
-.wrap{
-  display:flex;
-  gap:16px;
-  padding:16px;
-  max-width:1500px;
-  margin:auto
-}
-
-aside{
-  width:250px;
-  flex:none;
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:14px;
-  align-self:flex-start;
-  position:sticky;
-  top:16px
-}
-
-h1{
-  margin:0 0 4px;
-  font-size:22px;
-  letter-spacing:.04em
-}
-
-h2{
-  margin:18px 0 8px;
-  font-size:17px;
-  color:var(--acc);
-  font-weight:normal
-}
-
-.ev{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  width:100%;
-  padding:8px 10px;
-  margin:4px 0;
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:8px;
-  color:var(--text);
-  font:inherit;
-  cursor:pointer;
-  text-align:left
-}
-
-.ev .box{
-  width:18px;
-  height:18px;
-  flex:none;
-  border:2px solid var(--mute);
-  border-radius:4px;
-  display:grid;
-  place-items:center;
-  font-size:13px;
-  line-height:1
-}
-
+.wrap{display:flex;gap:16px;padding:16px;max-width:1500px;margin:auto}
+aside{width:250px;flex:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;align-self:flex-start;position:sticky;top:16px}
+h1{margin:0 0 4px;font-size:22px;letter-spacing:.04em}
+h2{margin:18px 0 8px;font-size:17px;color:var(--acc);font-weight:normal}
+.ev{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;margin:4px 0;background:var(--card);border:1px solid var(--line);border-radius:8px;color:var(--text);font:inherit;cursor:pointer;text-align:left}
+.ev .box{width:18px;height:18px;flex:none;border:2px solid var(--mute);border-radius:4px;display:grid;place-items:center;font-size:13px;line-height:1}
 .ev[data-s="1"]{border-color:var(--ok)}
-.ev[data-s="1"] .box{
-  background:var(--ok);
-  border-color:var(--ok);
-  color:#10261a
-}
-
-.ev[data-s="2"]{
-  border-color:var(--no);
-  opacity:.8
-}
-
-.ev[data-s="2"] .box{
-  background:var(--no);
-  border-color:var(--no);
-  color:#2a0d12
-}
-
-input[type=search]{
-  width:100%;
-  padding:8px 10px;
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:8px;
-  color:var(--text);
-  font:inherit
-}
-
-.btn{
-  width:100%;
-  margin-top:16px;
-  padding:9px;
-  background:none;
-  color:var(--text);
-  border:1px solid var(--line);
-  border-radius:8px;
-  font:inherit;
-  cursor:pointer
-}
-
-.btn:hover,.ev:hover,.snd:hover{
-  border-color:var(--acc)
-}
-
-:focus-visible{
-  outline:2px solid var(--acc);
-  outline-offset:2px
-}
-
+.ev[data-s="1"] .box{background:var(--ok);border-color:var(--ok);color:#10261a}
+.ev[data-s="2"]{border-color:var(--no);opacity:.8}
+.ev[data-s="2"] .box{background:var(--no);border-color:var(--no);color:#2a0d12}
+input[type=search]{width:100%;padding:8px 10px;background:var(--card);border:1px solid var(--line);border-radius:8px;color:var(--text);font:inherit}
+.btn{width:100%;margin-top:16px;padding:9px;background:none;color:var(--text);border:1px solid var(--line);border-radius:8px;font:inherit;cursor:pointer}
+.btn:hover,.ev:hover,.snd:hover{border-color:var(--acc)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 small{color:var(--mute)}
-
-main{
-  flex:1;
-  min-width:0
-}
-
-#count{
-  margin:0 0 12px;
-  color:var(--mute)
-}
-
-#grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
-  gap:12px
-}
-
-.g{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:12px 14px;
-  cursor:pointer
-}
-
+main{flex:1;min-width:0}
+#count{margin:0 0 12px;color:var(--mute)}
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.g{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer}
 .g.dim{opacity:.18}
-.g.done{
-  text-decoration:line-through;
-  opacity:.35
-}
-
-.g h3{
-  margin:0 0 8px;
-  font-size:20px;
-  letter-spacing:.03em
-}
-
-.tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px 10px;
-  margin-bottom:8px
-}
-
-.tag{
-  font-size:13px;
-  color:var(--mute)
-}
-
-.tag.on{
-  color:var(--ok);
-  font-weight:bold
-}
-
-.tell{
-  margin:8px 0 0;
-  font-size:13px;
-  border-top:1px dashed var(--line);
-  padding-top:8px;
-  white-space:pre-line
-}
-
-.sounds{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  margin-top:10px
-}
-
-.snd{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  width:100%;
-  padding:6px 10px;
-  background:none;
-  color:var(--text);
-  border:1px solid var(--line);
-  border-radius:8px;
-  font:inherit;
-  font-size:13px;
-  cursor:pointer;
-  text-align:left
-}
-
-.snd.play{
-  border-color:var(--ok);
-  color:var(--ok)
-}
-
-@media(max-width:760px){
-  .wrap{flex-direction:column}
-  aside{
-    width:100%;
-    position:static
-  }
-}
+.g.done{text-decoration:line-through;opacity:.35}
+.g h3{margin:0 0 8px;font-size:20px;letter-spacing:.03em}
+.tags{display:flex;flex-wrap:wrap;gap:6px 10px;margin-bottom:8px}
+.tag{font-size:13px;color:var(--mute)}
+.tag.on{color:var(--ok);font-weight:bold}
+.tell{margin:8px 0 0;font-size:13px;border-top:1px dashed var(--line);padding-top:8px;white-space:pre-line}
+.sounds{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.snd{display:flex;align-items:center;gap:8px;width:100%;padding:6px 10px;background:none;color:var(--text);border:1px solid var(--line);border-radius:8px;font:inherit;font-size:13px;cursor:pointer;text-align:left}
+.snd.play{border-color:var(--ok);color:var(--ok)}
+@media(max-width:760px){.wrap{flex-direction:column}aside{width:100%;position:static}}
 </style>
 </head>
-
 <body>
 
 <header class="top">
   <div class="lang">
-
     <button class="flag" data-l="fr" title="Français" aria-label="Français">
       <svg viewBox="0 0 3 2" preserveAspectRatio="none">
         <rect width="1" height="2" fill="#0055a4"/>
@@ -285,7 +57,6 @@ main{
         <rect x="2" width="1" height="2" fill="#ef4135"/>
       </svg>
     </button>
-
     <button class="flag" data-l="en" title="English" aria-label="English">
       <svg viewBox="0 0 60 30" preserveAspectRatio="none">
         <rect width="60" height="30" fill="#012169"/>
@@ -295,7 +66,6 @@ main{
         <path d="M30 0V30M0 15H60" stroke="#c8102e" stroke-width="6"/>
       </svg>
     </button>
-
     <button class="flag" data-l="ru" title="Русский" aria-label="Русский">
       <svg viewBox="0 0 3 2" preserveAspectRatio="none">
         <rect width="3" height="2" fill="#fff"/>
@@ -303,38 +73,29 @@ main{
         <rect y="1.333" width="3" height="0.667" fill="#d52b1e"/>
       </svg>
     </button>
-
   </div>
 </header>
 
 <div class="wrap">
-
-<aside>
-  <h1>Demonology</h1>
-  <small id="hint"></small>
-
-  <h2 id="t-ev"></h2>
-  <div id="evs"></div>
-
-  <h2 id="t-search"></h2>
-  <input type="search" id="q">
-
-  <button class="btn" id="reset"></button>
-</aside>
-
-<main>
-  <p id="count"></p>
-  <div id="grid"></div>
-</main>
-
+  <aside>
+    <h1>Demonology</h1>
+    <small id="hint"></small>
+    <h2 id="t-ev"></h2>
+    <div id="evs"></div>
+    <h2 id="t-search"></h2>
+    <input type="search" id="q">
+    <button class="btn" id="reset"></button>
+  </aside>
+  <main>
+    <p id="count"></p>
+    <div id="grid"></div>
+  </main>
 </div>
 
 <script>
-
-const LANGS = ["fr","en","ru"];
+const LANGS = ["en","fr","ru"];
 
 const I18N = {
-
   en:{
     title:"Demonology - Tool",
     hint:"Click an evidence: found → excluded → neutral",
@@ -345,10 +106,7 @@ const I18N = {
     cross:"Click to cross out this ghost",
     fake:"Fake",
     play:"Play / Stop",
-
-    count:(n,t)=>
-      n+" possible ghost"+(n===1?"":"s")+" out of "+t,
-
+    count:(n,t)=>n+" possible ghost"+(n===1?"":"s")+" out of "+t,
     ev:{
       "EMF Level 5":"EMF Level 5",
       "Inscription":"Inscription",
@@ -360,7 +118,6 @@ const I18N = {
       "Laser Projector":"Laser Projector"
     }
   },
-
   fr:{
     title:"Demonology - Outil",
     hint:"Cliquez sur une preuve : trouvée → exclue → neutre",
@@ -371,10 +128,7 @@ const I18N = {
     cross:"Cliquez pour barrer ce fantôme",
     fake:"Fausse",
     play:"Lecture / Arrêt",
-
-    count:(n,t)=>
-      n+" fantôme"+(n>1?"s":"")+" possible"+(n>1?"s":"")+" sur "+t,
-
+    count:(n,t)=>n+" fantôme"+(n>1?"s":"")+" possible"+(n>1?"s":"")+" sur "+t,
     ev:{
       "EMF Level 5":"EMF niveau 5",
       "Inscription":"Inscription",
@@ -386,7 +140,6 @@ const I18N = {
       "Laser Projector":"Projecteur laser"
     }
   },
-
   ru:{
     title:"Demonology - Инструмент",
     hint:"Нажмите на улику: найдена → исключена → нейтрально",
@@ -397,10 +150,7 @@ const I18N = {
     cross:"Нажмите, чтобы вычеркнуть призрака",
     fake:"Ложная",
     play:"Играть / Стоп",
-
-    count:(n,t)=>
-      "Возможных призраков: "+n+" из "+t,
-
+    count:(n,t)=>"Возможных призраков: "+n+" из "+t,
     ev:{
       "EMF Level 5":"ЭМП 5 уровня",
       "Inscription":"Надпись",
@@ -412,22 +162,11 @@ const I18N = {
       "Laser Projector":"Лазерный проектор"
     }
   }
-
 };
 
-const EVIDENCE = [
-  "EMF Level 5",
-  "Inscription",
-  "Wither",
-  "Freezing Temperatures",
-  "Ghost Orb",
-  "Prints",
-  "Spirit Box",
-  "Laser Projector"
-];
+const EVIDENCE = Object.keys(I18N.en.ev);
 
 const GHOSTS = [
-
 {
   n:"Aswang",
   ev:["EMF Level 5","Inscription","Wither"],
@@ -437,7 +176,6 @@ const GHOSTS = [
     "Каждый убитый уникальный охотник повышает её скорость на 20%. Соль замедляет её."
   ]
 },
-
 {
   n:"Banshee",
   ev:["Freezing Temperatures","Ghost Orb","Prints"],
@@ -446,18 +184,15 @@ const GHOSTS = [
     "Brise souvent du verre et peut pousser un cri distinctif au début d'une chasse.",
     "Часто бьёт стекло и может издать характерный вопль в начале охоты."
   ],
-  s:[
-    {
-      l:[
-        "Banshee's distinctive hunt scream",
-        "Cri distinctif de chasse de la Banshee",
-        "Характерный вопль охоты Банши"
-      ],
-      f:"sound-effects/Banshee_Distinct_Hunt_Scream.mp3"
-    }
-  ]
+  s:[{
+    l:[
+      "Banshee's distinctive hunt scream",
+      "Cri distinctif de chasse de la Banshee",
+      "Характерный вопль охоты Банши"
+    ],
+    f:"sound-effects/Banshee_Distinct_Hunt_Scream.mp3"
+  }]
 },
-
 {
   n:"Demon",
   ev:["EMF Level 5","Freezing Temperatures","Prints"],
@@ -467,7 +202,6 @@ const GHOSTS = [
     "Охотится часто. Кресты действуют на него на большем расстоянии и могут парить, пока горят."
   ]
 },
-
 {
   n:"Doppelganger",
   ev:["Freezing Temperatures","Inscription","Spirit Box"],
@@ -478,7 +212,6 @@ const GHOSTS = [
     "Может создавать ложный призрачный шар и копировать способности других призраков. Прежде чем решать, подтвердите остальные улики."
   ]
 },
-
 {
   n:"Dullahan",
   ev:["Freezing Temperatures","Laser Projector","Wither"],
@@ -488,7 +221,6 @@ const GHOSTS = [
     "Ускоряется, когда охотник в зоне его видимости. На фотографиях выглядит безголовым."
   ]
 },
-
 {
   n:"Dybbuk",
   ev:["Freezing Temperatures","Prints","Wither"],
@@ -498,7 +230,6 @@ const GHOSTS = [
     "Может бросать трупы. Музыкальная шкатулка поначалу оглушает его."
   ]
 },
-
 {
   n:"Entity",
   ev:["Prints","Laser Projector","Spirit Box"],
@@ -508,7 +239,6 @@ const GHOSTS = [
     "Может телепортироваться во время блуждания или охоты и телепортировать предметы перед броском."
   ]
 },
-
 {
   n:"Ghoul",
   ev:["Freezing Temperatures","Ghost Orb","Spirit Box"],
@@ -518,7 +248,6 @@ const GHOSTS = [
     "Использование спирит-бокса может спровоцировать охоту. Не может включать и выключать электронику во время охоты."
   ]
 },
-
 {
   n:"Keres",
   ev:["Prints","Spirit Box","Wither"],
@@ -528,7 +257,6 @@ const GHOSTS = [
     "Преследует охотника с наименьшей энергией и замедляется на 10% за каждое убийство. В одиночной игре нацеливается на вас только при энергии ниже 90%."
   ]
 },
-
 {
   n:"Leviathan",
   ev:["Inscription","Prints","Ghost Orb"],
@@ -537,18 +265,15 @@ const GHOSTS = [
     "Peut faire clignoter les équipements à proximité et éteindre les lumières en dehors des chasses.",
     "Может заставлять мигать оборудование поблизости и отключать свет вне охоты."
   ],
-  s:[
-    {
-      l:[
-        "Leviathan EMF flicker",
-        "Scintillement EMF du Leviathan",
-        "Мерцание ЭМП Левиафана"
-      ],
-      f:"sound-effects/EmfFlickerLeviathan.mp3"
-    }
-  ]
+  s:[{
+    l:[
+      "Leviathan EMF flicker",
+      "Scintillement EMF du Leviathan",
+      "Мерцание ЭМП Левиафана"
+    ],
+    f:"sound-effects/EmfFlickerLeviathan.mp3"
+  }]
 },
-
 {
   n:"Nightmare",
   ev:["EMF Level 5","Ghost Orb","Spirit Box"],
@@ -558,7 +283,6 @@ const GHOSTS = [
     "Вызывает галлюцинации и чаще охотится в темноте."
   ]
 },
-
 {
   n:"Oni",
   ev:["Freezing Temperatures","Laser Projector","Spirit Box"],
@@ -568,7 +292,6 @@ const GHOSTS = [
     "Может бегать во время охоты и проявляется чаще."
   ]
 },
-
 {
   n:"Phantom",
   ev:["EMF Level 5","Prints","Ghost Orb"],
@@ -578,17 +301,15 @@ const GHOSTS = [
     "Реже мигает во время охоты и быстрее двигается, будучи невидимым."
   ]
 },
-
 {
   n:"Ravager",
   ev:["EMF Level 5","Inscription","Spirit Box"],
   t:[
     "Can throw multiple objects or create a vortex. Its ghost events produce EMF Level 5 readings.\n(Makes a laser-gun sound when throwing an object.)",
     "Peut lancer plusieurs objets à la fois ou créer un vortex. Ses manifestations paranormales produisent des relevés EMF de niveau 5.\n(Émet un bruit de tir laser lorsqu'il lance un objet.)",
-    "Может бросать несколько предметов сразу или создавать вихрь. Его события дают показания ЭМП 5 уровня. \n(Издаёт звук лазерного оружия при броске предмета.)"
+    "Может бросать несколько предметов сразу или создавать вихрь. Его события дают показания ЭМП 5 уровня.\n(Издаёт звук лазерного оружия при броске предмета.)"
   ]
 },
-
 {
   n:"Revenant",
   ev:["EMF Level 5","Freezing Temperatures","Inscription"],
@@ -598,7 +319,6 @@ const GHOSTS = [
     "Между охотами делает короткую паузу, но сразу завершает охоту после убийства охотника."
   ]
 },
-
 {
   n:"Shadow",
   ev:["EMF Level 5","Inscription","Laser Projector"],
@@ -608,7 +328,6 @@ const GHOSTS = [
     "Лишь слегка меняет температуру в комнате и менее активен в хорошо освещённых помещениях."
   ]
 },
-
 {
   n:"Siren",
   ev:["EMF Level 5","Spirit Box","Wither"],
@@ -617,18 +336,15 @@ const GHOSTS = [
     "Ralentit les chasseurs dans son champ de vision. Utilise une voix féminine sur la Spirit Box et peut fredonner.",
     "Замедляет охотников в зоне видимости. Говорит женским голосом через спирит-бокс и может напевать."
   ],
-  s:[
-    {
-      l:[
-        "Siren humming",
-        "Fredonnement de la Sirène",
-        "Напевание Сирены"
-      ],
-      f:"sound-effects/Siren_humming.mp3"
-    }
-  ]
+  s:[{
+    l:[
+      "Siren humming",
+      "Fredonnement de la Sirène",
+      "Напевание Сирены"
+    ],
+    f:"sound-effects/Siren_humming.mp3"
+  }]
 },
-
 {
   n:"Specter",
   ev:["EMF Level 5","Freezing Temperatures","Laser Projector"],
@@ -638,7 +354,6 @@ const GHOSTS = [
     "Часто бросает предметы и редко блуждает."
   ]
 },
-
 {
   n:"Spirit",
   ev:["Inscription","Prints","Spirit Box"],
@@ -648,7 +363,6 @@ const GHOSTS = [
     "Может менять цвет пламени."
   ]
 },
-
 {
   n:"The Wisp",
   ev:["Ghost Orb","Laser Projector","Wither"],
@@ -658,7 +372,6 @@ const GHOSTS = [
     "Может начать охоту только в любимой комнате. Зажигает свечи и проходит сквозь огонь святого масла."
   ]
 },
-
 {
   n:"Umbra",
   ev:["Prints","Ghost Orb","Laser Projector"],
@@ -668,7 +381,6 @@ const GHOSTS = [
     "Не издаёт звуков шагов и замедляется в освещённых комнатах."
   ]
 },
-
 {
   n:"Vesper",
   ev:["Inscription","Prints","Wither"],
@@ -678,7 +390,6 @@ const GHOSTS = [
     "Находит охотников по звуку, а не по зрению."
   ]
 },
-
 {
   n:"Vex",
   ev:["Freezing Temperatures","Ghost Orb","Wither"],
@@ -688,7 +399,6 @@ const GHOSTS = [
     "Может проходить сквозь стены и не отображается на сканах LIDAR."
   ]
 },
-
 {
   n:"Wraith",
   ev:["EMF Level 5","Laser Projector","Spirit Box"],
@@ -698,7 +408,6 @@ const GHOSTS = [
     "Истощает энергию ближайших охотников на 0,2–0,4% в секунду и не нарушает соль."
   ]
 },
-
 {
   n:"Wretch",
   ev:["Inscription","Ghost Orb","Laser Projector"],
@@ -708,183 +417,91 @@ const GHOSTS = [
     "Может бегать, когда средняя энергия падает. Не начинает охоту рядом с зажжённым огнём."
   ]
 }
-
 ];
 
-const st = {
-  ev:{},
-  q:"",
-  done:new Set()
+const $ = id => document.getElementById(id);
+const st = { ev:{}, q:"", done:new Set() };
+
+const store = {
+  get:() => { try { return localStorage.getItem("lang"); } catch { return null; } },
+  set:v => { try { localStorage.setItem("lang", v); } catch {} }
 };
 
-const $ = id => document.getElementById(id);
-
-let lang = "en";
+let lang = [store.get(), navigator.language.slice(0,2)].find(l => LANGS.includes(l)) || "en";
 let audio = null;
 let playingBtn = null;
 
-try {
-  const saved = localStorage.getItem("lang");
-
-  if (LANGS.includes(saved)) {
-    lang = saved;
-  } else {
-    const browserLang = (navigator.language || "").slice(0,2);
-
-    if (LANGS.includes(browserLang)) {
-      lang = browserLang;
-    }
-  }
-} catch(e) {}
-
 const T = () => I18N[lang];
-const LI = () => LANGS.indexOf(lang);
 
 function stopAudio(){
-
-  if(audio){
-    audio.pause();
-    audio = null;
-  }
-
-  if(playingBtn){
-    playingBtn.classList.remove("play");
-    playingBtn = null;
-  }
-
+  audio?.pause();
+  audio = null;
+  playingBtn?.classList.remove("play");
+  playingBtn = null;
 }
 
-function playSound(file,btn){
-
+function playSound(file, btn){
   const same = playingBtn === btn;
-
   stopAudio();
-
   if(same) return;
-
   audio = new Audio(file);
   playingBtn = btn;
-
   btn.classList.add("play");
-
-  audio.onended = () => {
-    btn.classList.remove("play");
-    playingBtn = null;
-    audio = null;
-  };
-
-  audio.onerror = () => {
-    btn.classList.remove("play");
-    playingBtn = null;
-    audio = null;
-  };
-
-  audio.play().catch(() => {
-    btn.classList.remove("play");
-    playingBtn = null;
-    audio = null;
-  });
-
+  audio.onended = audio.onerror = stopAudio;
+  audio.play().catch(stopAudio);
 }
 
 function build(){
-
   $("evs").innerHTML = "";
-
   EVIDENCE.forEach(e => {
-
-    const s = st.ev[e] || 0;
-
     const b = document.createElement("button");
+    const box = document.createElement("span");
+    const label = document.createElement("span");
+    const mark = s => { b.dataset.s = s; box.textContent = ["","✓","✕"][s]; };
 
     b.className = "ev";
-    b.dataset.s = s;
-
-    const box = document.createElement("span");
     box.className = "box";
-    box.textContent = ["","✓","✕"][s];
-
-    const label = document.createElement("span");
     label.textContent = T().ev[e];
+    mark(st.ev[e] || 0);
 
-    b.append(box,label);
-
+    b.append(box, label);
     b.onclick = () => {
-
-      const n = ((st.ev[e] || 0) + 1) % 3;
-
-      st.ev[e] = n;
-
-      b.dataset.s = n;
-      box.textContent = ["","✓","✕"][n];
-
+      st.ev[e] = ((st.ev[e] || 0) + 1) % 3;
+      mark(st.ev[e]);
       render();
-
     };
-
     $("evs").append(b);
-
   });
-
 }
 
 function matches(g){
-
   for(const [e,s] of Object.entries(st.ev)){
-
-    const has = g.ev.includes(e);
-    const fake = g.fake === e;
-
-    if(s === 1 && !has && !fake) return false;
-
-    if(s === 2 && has) return false;
-
+    const has = g.ev.includes(e) || g.fake === e;
+    if(s === 1 && !has) return false;
+    if(s === 2 && g.ev.includes(e)) return false;
   }
-
   return g.n.toLowerCase().includes(st.q);
-
 }
 
 function render(){
-
   const tr = T();
-  const li = LI();
-
-  const found = Object.entries(st.ev)
-    .filter(([,s]) => s === 1)
-    .map(([e]) => e);
-
+  const li = LANGS.indexOf(lang);
+  const found = Object.keys(st.ev).filter(e => st.ev[e] === 1);
   let n = 0;
 
   stopAudio();
-
   $("grid").innerHTML = "";
 
   GHOSTS.forEach(g => {
-
     const m = matches(g);
-
     if(m) n++;
 
     const d = document.createElement("div");
-
-    d.className =
-      "g" +
-      (m ? "" : " dim") +
-      (st.done.has(g.n) ? " done" : "");
-
+    d.className = "g" + (m ? "" : " dim") + (st.done.has(g.n) ? " done" : "");
     d.title = tr.cross;
-
     d.onclick = () => {
-
-      if(st.done.has(g.n)){
-        st.done.delete(g.n);
-      }else{
-        st.done.add(g.n);
-      }
-
+      st.done.has(g.n) ? st.done.delete(g.n) : st.done.add(g.n);
       render();
-
     };
 
     const title = document.createElement("h3");
@@ -892,142 +509,90 @@ function render(){
 
     const tags = document.createElement("div");
     tags.className = "tags";
-
     g.ev.forEach(e => {
-
       const tag = document.createElement("span");
-
-      tag.className =
-        "tag" + (found.includes(e) ? " on" : "");
-
+      tag.className = "tag" + (found.includes(e) ? " on" : "");
       tag.textContent = tr.ev[e];
-
       tags.append(tag);
-
     });
 
     if(g.fake){
-
       const fake = document.createElement("span");
-
       fake.className = "tag";
-      fake.textContent =
-        "(" + tr.fake + ": " + tr.ev[g.fake] + ")";
-
+      fake.textContent = "(" + tr.fake + ": " + tr.ev[g.fake] + ")";
       tags.append(fake);
-
     }
 
     const tell = document.createElement("p");
-
     tell.className = "tell";
     tell.textContent = g.t[li];
 
-    d.append(title,tags,tell);
+    d.append(title, tags, tell);
 
-    if(g.s && g.s.length){
-
+    if(g.s){
       const box = document.createElement("div");
-
       box.className = "sounds";
-
       g.s.forEach(s => {
-
         const b = document.createElement("button");
-
         b.className = "snd";
         b.textContent = "🔊 " + s.l[li];
         b.title = tr.play;
-
         b.onclick = e => {
           e.stopPropagation();
-          playSound(s.f,b);
+          playSound(s.f, b);
         };
-
         box.append(b);
-
       });
-
       d.append(box);
-
     }
 
     $("grid").append(d);
-
   });
 
-  $("count").textContent = tr.count(n,GHOSTS.length);
-
+  $("count").textContent = tr.count(n, GHOSTS.length);
 }
 
 function applyLang(){
-
   const tr = T();
 
   document.documentElement.lang = lang;
-
   document.title = tr.title;
-
   $("hint").textContent = tr.hint;
   $("t-ev").textContent = tr.evidence;
   $("t-search").textContent = tr.search;
-
   $("q").placeholder = tr.placeholder;
-  $("q").setAttribute("aria-label",tr.search);
-
+  $("q").setAttribute("aria-label", tr.search);
   $("reset").textContent = tr.reset;
 
-  document.querySelectorAll(".flag").forEach(f => {
-
-    f.classList.toggle("on",f.dataset.l === lang);
-
-  });
+  document.querySelectorAll(".flag").forEach(f => f.classList.toggle("on", f.dataset.l === lang));
 
   build();
   render();
-
 }
 
 document.querySelectorAll(".flag").forEach(f => {
-
   f.onclick = () => {
-
     lang = f.dataset.l;
-
-    try {
-      localStorage.setItem("lang",lang);
-    } catch(e) {}
-
+    store.set(lang);
     applyLang();
-
   };
-
 });
 
 $("q").oninput = e => {
-
   st.q = e.target.value.trim().toLowerCase();
-
   render();
-
 };
 
 $("reset").onclick = () => {
-
   st.ev = {};
   st.q = "";
   st.done.clear();
-
   $("q").value = "";
-
   build();
   render();
-
 };
 
 applyLang();
-
 </script>
-
 </body>
 </html>
