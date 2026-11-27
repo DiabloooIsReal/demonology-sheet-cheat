@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Demonology – Ghost Tool</title>
+<title>Demonology - Tool</title>
 <style>
 :root{--bg:#14101c;--panel:#201a2e;--card:#2b2340;--line:#4a3d6b;--text:#ece8f5;--mute:#9a90b3;--ok:#7be0a0;--no:#ff6b7a;--acc:#b794f6}
 *{box-sizing:border-box}
@@ -18,7 +18,7 @@ h2{margin:18px 0 8px;font-size:17px;color:var(--acc);font-weight:normal}
 .ev[data-s="2"]{border-color:var(--no);opacity:.8}.ev[data-s="2"] .box{background:var(--no);border-color:var(--no);color:#2a0d12}
 input[type=search]{width:100%;padding:8px 10px;background:var(--card);border:1px solid var(--line);border-radius:8px;color:var(--text);font:inherit}
 .btn{width:100%;margin-top:16px;padding:9px;background:none;color:var(--text);border:1px solid var(--line);border-radius:8px;font:inherit;cursor:pointer}
-.btn:hover,.ev:hover{border-color:var(--acc)}
+.btn:hover,.ev:hover,.snd:hover{border-color:var(--acc)}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 small{color:var(--mute)}
 main{flex:1;min-width:0}
@@ -32,6 +32,9 @@ main{flex:1;min-width:0}
 .tag{font-size:13px;color:var(--mute)}
 .tag.on{color:var(--ok);font-weight:bold}
 .tell{margin:8px 0 0;font-size:13px;border-top:1px dashed var(--line);padding-top:8px}
+.sounds{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.snd{display:flex;align-items:center;gap:8px;width:100%;padding:6px 10px;background:none;color:var(--text);border:1px solid var(--line);border-radius:8px;font:inherit;font-size:13px;cursor:pointer;text-align:left}
+.snd.play{border-color:var(--ok);color:var(--ok)}
 footer{margin-top:20px;color:var(--mute);font-size:12px}
 @media(max-width:760px){.wrap{flex-direction:column}aside{width:100%;position:static}}
 </style>
@@ -58,7 +61,7 @@ footer{margin-top:20px;color:var(--mute);font-size:12px}
 const EVIDENCE = ["EMF Level 5","Inscription","Wither","Freezing Temperatures","Ghost Orb","Prints","Spirit Box","Laser Projector"];
 const GHOSTS = [
  {n:"Aswang",ev:["EMF Level 5","Inscription","Wither"],tell:"Each unique hunter killed increases its speed by 20%. Walking through salt slows it."},
- {n:"Banshee",ev:["Freezing Temperatures","Ghost Orb","Prints"],tell:"Often breaks glass and may let out a distinctive wail at the start of a hunt.",sound:"sound-effects/Banshee_Distinct_Hunt_Scream.mp3"},
+ {n:"Banshee",ev:["Freezing Temperatures","Ghost Orb","Prints"],tell:"Often breaks glass and may let out a distinctive wail at the start of a hunt.",sounds:[{label:"Banshee distinct hunt scream",file:"sound-effects/Banshee_Distinct_Hunt_Scream.mp3"}]},
  {n:"Demon",ev:["EMF Level 5","Freezing Temperatures","Prints"],tell:"Hunts frequently. Crosses have a larger effective range against it and may float while burning."},
  {n:"Doppelganger",ev:["Freezing Temperatures","Inscription","Spirit Box"],fake:"Ghost Orb",tell:"Can produce a false Ghost Orb and mimic other ghosts' abilities. Confirm its other evidence before deciding."},
  {n:"Dullahan",ev:["Freezing Temperatures","Laser Projector","Wither"],tell:"Speeds up when a hunter is in its line of sight. Appears headless in photographs."},
@@ -66,14 +69,14 @@ const GHOSTS = [
  {n:"Entity",ev:["Prints","Laser Projector","Spirit Box"],tell:"Can teleport while roaming or hunting, and can teleport objects before throwing them."},
  {n:"Ghoul",ev:["Freezing Temperatures","Ghost Orb","Spirit Box"],tell:"Using the Spirit Box can trigger a hunt. It cannot switch electronic equipment on or off during hunts."},
  {n:"Keres",ev:["Prints","Spirit Box","Wither"],tell:"Targets the hunter with the least energy and slows by 10% per kill. In solo play, it only targets you below 90% energy."},
- {n:"Leviathan",ev:["Inscription","Prints","Ghost Orb"],tell:"Can make nearby equipment flicker and disable lights outside hunts."},
+ {n:"Leviathan",ev:["Inscription","Prints","Ghost Orb"],tell:"Can make nearby equipment flicker and disable lights outside hunts.",sounds:[{label:"Leviathan EMF flicker",file:"sound-effects/EmfFlickerLeviathan.mp3"}]},
  {n:"Nightmare",ev:["EMF Level 5","Ghost Orb","Spirit Box"],tell:"Causes hallucinations and is more likely to hunt in the dark."},
  {n:"Oni",ev:["Freezing Temperatures","Laser Projector","Spirit Box"],tell:"Can sprint during hunts and manifests more often."},
  {n:"Phantom",ev:["EMF Level 5","Prints","Ghost Orb"],tell:"Blinks less frequently during hunts and moves faster while invisible."},
  {n:"Ravager",ev:["EMF Level 5","Inscription","Spirit Box"],tell:"Can throw multiple objects or form a vortex. Its ghost events leave EMF Level 5 readings."},
  {n:"Revenant",ev:["EMF Level 5","Freezing Temperatures","Inscription"],tell:"Has a short cooldown between hunts, but ends a hunt immediately after killing a hunter."},
  {n:"Shadow",ev:["EMF Level 5","Inscription","Laser Projector"],tell:"Changes room temperature only slightly and is less active in well-lit rooms."},
- {n:"Siren",ev:["EMF Level 5","Spirit Box","Wither"],tell:"Slows hunters in its line of sight. Uses a feminine voice on the Spirit Box and may hum."},
+ {n:"Siren",ev:["EMF Level 5","Spirit Box","Wither"],tell:"Slows hunters in its line of sight. Uses a feminine voice on the Spirit Box and may hum.",sounds:[{label:"Siren humming",file:"sound-effects/Siren_humming.mp3"}]},
  {n:"Specter",ev:["EMF Level 5","Freezing Temperatures","Laser Projector"],tell:"Throws objects frequently and rarely roams."},
  {n:"Spirit",ev:["Inscription","Prints","Spirit Box"],tell:"Can change the color of flames."},
  {n:"The Wisp",ev:["Ghost Orb","Laser Projector","Wither"],tell:"Can only start a hunt in its favorite room. Can light candles and walk through Holy Oil fire."},
@@ -83,10 +86,21 @@ const GHOSTS = [
  {n:"Wraith",ev:["EMF Level 5","Laser Projector","Spirit Box"],tell:"Drains nearby hunters' energy by 0.2–0.4% per second and leaves salt undisturbed."},
  {n:"Wretch",ev:["Inscription","Ghost Orb","Laser Projector"],tell:"Can sprint as average energy falls. Does not start hunts near a lit flame."}
 ];
-// ====== END OF DATA ======
 
 const st = {ev:{}, q:"", done:new Set()};
 const $ = id => document.getElementById(id);
+let audio = null, playingBtn = null;
+
+function playSound(file, btn){
+  if(audio){ audio.pause(); audio = null; }
+  if(playingBtn){ playingBtn.classList.remove("play"); }
+  if(playingBtn === btn){ playingBtn = null; return; } // 2nd click = stop
+  audio = new Audio(file);
+  playingBtn = btn;
+  btn.classList.add("play");
+  audio.onended = () => { btn.classList.remove("play"); playingBtn = null; };
+  audio.play().catch(() => { btn.classList.remove("play"); playingBtn = null; });
+}
 
 function build(){
   $("evs").innerHTML = "";
@@ -113,6 +127,7 @@ function matches(g){
 function render(){
   const found = Object.entries(st.ev).filter(([,s])=>s===1).map(([e])=>e);
   let n=0;
+  if(audio){ audio.pause(); audio = null; playingBtn = null; }
   $("grid").innerHTML = "";
   GHOSTS.forEach(g=>{
     const m = matches(g); if(m) n++;
@@ -123,10 +138,17 @@ function render(){
     d.innerHTML = `<h3>${g.n}</h3>
       <div class="tags">${g.ev.map(e=>`<span class="tag${found.includes(e)?" on":""}">${e}</span>`).join("")}${g.fake?`<span class="tag">(fake: ${g.fake})</span>`:""}</div>
       <p class="tell">${g.tell}</p>`;
-    if(g.sound){
-      const b=document.createElement("button"); b.className="btn"; b.textContent="Listen";
-      b.onclick=e=>{e.stopPropagation();new Audio(g.sound).play()};
-      d.append(b);
+    if(g.sounds && g.sounds.length){
+      const box = document.createElement("div"); box.className = "sounds";
+      g.sounds.forEach(s=>{
+        const b = document.createElement("button");
+        b.className = "snd";
+        b.textContent = "🔊 " + s.label;
+        b.title = "Play / stop";
+        b.onclick = e => { e.stopPropagation(); playSound(s.file, b); };
+        box.append(b);
+      });
+      d.append(box);
     }
     $("grid").append(d);
   });
