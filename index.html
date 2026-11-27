@@ -50,18 +50,15 @@ footer{margin-top:20px;color:var(--mute);font-size:12px}
 <main>
   <p id="count"></p>
   <div id="grid"></div>
-  <footer>Data from the Demonology community wiki pages (OP.GG, Fandom). Game updates can change it: edit the GHOSTS array in this file.</footer>
 </main>
 </div>
 
 <script>
-// ====== DATA: edit / complete here ======
-// ev: the 3 evidence | fake: false evidence the ghost can show | tell: trait
-// sound: (optional) path to an audio file in your repo, e.g. "sounds/banshee.mp3"
+
 const EVIDENCE = ["EMF Level 5","Inscription","Wither","Freezing Temperatures","Ghost Orb","Prints","Spirit Box","Laser Projector"];
 const GHOSTS = [
  {n:"Aswang",ev:["EMF Level 5","Inscription","Wither"],tell:"Each unique hunter killed increases its speed by 20%. Walking through salt slows it."},
- {n:"Banshee",ev:["Freezing Temperatures","Ghost Orb","Prints"],tell:"Often breaks glass and may let out a distinctive wail at the start of a hunt.",sound:""},
+ {n:"Banshee",ev:["Freezing Temperatures","Ghost Orb","Prints"],tell:"Often breaks glass and may let out a distinctive wail at the start of a hunt.",sound:"sound-effects/Banshee_Distinct_Hunt_Scream.mp3"},
  {n:"Demon",ev:["EMF Level 5","Freezing Temperatures","Prints"],tell:"Hunts frequently. Crosses have a larger effective range against it and may float while burning."},
  {n:"Doppelganger",ev:["Freezing Temperatures","Inscription","Spirit Box"],fake:"Ghost Orb",tell:"Can produce a false Ghost Orb and mimic other ghosts' abilities. Confirm its other evidence before deciding."},
  {n:"Dullahan",ev:["Freezing Temperatures","Laser Projector","Wither"],tell:"Speeds up when a hunter is in its line of sight. Appears headless in photographs."},
