@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demonology – Ghost Tool</title>
+<style>
+:root{--bg:#14101c;--panel:#201a2e;--card:#2b2340;--line:#4a3d6b;--text:#ece8f5;--mute:#9a90b3;--ok:#7be0a0;--no:#ff6b7a;--acc:#b794f6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.4 Georgia,"Times New Roman",serif}
+.wrap{display:flex;gap:16px;padding:16px;max-width:1500px;margin:auto}
+aside{width:250px;flex:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;align-self:flex-start;position:sticky;top:16px}
+h1{margin:0 0 4px;font-size:22px;letter-spacing:.04em}
+h2{margin:18px 0 8px;font-size:17px;color:var(--acc);font-weight:normal}
+.ev{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;margin:4px 0;background:var(--card);border:1px solid var(--line);border-radius:8px;color:var(--text);font:inherit;cursor:pointer;text-align:left}
+.ev .box{width:18px;height:18px;border:2px solid var(--mute);border-radius:4px;display:grid;place-items:center;font-size:13px;line-height:1}
+.ev[data-s="1"]{border-color:var(--ok)}.ev[data-s="1"] .box{background:var(--ok);border-color:var(--ok);color:#10261a}
+.ev[data-s="2"]{border-color:var(--no);opacity:.8}.ev[data-s="2"] .box{background:var(--no);border-color:var(--no);color:#2a0d12}
+input[type=search]{width:100%;padding:8px 10px;background:var(--card);border:1px solid var(--line);border-radius:8px;color:var(--text);font:inherit}
+.btn{width:100%;margin-top:16px;padding:9px;background:none;color:var(--text);border:1px solid var(--line);border-radius:8px;font:inherit;cursor:pointer}
+.btn:hover,.ev:hover{border-color:var(--acc)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+small{color:var(--mute)}
+main{flex:1;min-width:0}
+#count{margin:0 0 12px;color:var(--mute)}
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.g{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer}
+.g.dim{opacity:.18}
+.g.done{text-decoration:line-through;opacity:.35}
+.g h3{margin:0 0 8px;font-size:20px;letter-spacing:.03em}
+.tags{display:flex;flex-wrap:wrap;gap:6px 10px;margin-bottom:8px}
+.tag{font-size:13px;color:var(--mute)}
+.tag.on{color:var(--ok);font-weight:bold}
+.tell{margin:8px 0 0;font-size:13px;border-top:1px dashed var(--line);padding-top:8px}
+footer{margin-top:20px;color:var(--mute);font-size:12px}
+@media(max-width:760px){.wrap{flex-direction:column}aside{width:100%;position:static}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <h1>Demonology</h1>
+  <small>Click an evidence: found → excluded → neutral</small>
+  <h2>Evidence</h2>
+  <div id="evs"></div>
+  <h2>Search</h2>
+  <input type="search" id="q" placeholder="Ghost name…" aria-label="Search a ghost">
+  <button class="btn" id="reset">Reset</button>
+</aside>
+<main>
+  <p id="count"></p>
+  <div id="grid"></div>
+  <footer>Data from the Demonology community wiki pages (OP.GG, Fandom). Game updates can change it: edit the GHOSTS array in this file.</footer>
+</main>
+</div>
+
+<script>
+// ====== DATA: edit / complete here ======
+// ev: the 3 evidence | fake: false evidence the ghost can show | tell: trait
+// sound: (optional) path to an audio file in your repo, e.g. "sounds/banshee.mp3"
+const EVIDENCE = ["EMF Level 5","Inscription","Wither","Freezing Temperatures","Ghost Orb","Prints","Spirit Box","Laser Projector"];
+const GHOSTS = [
+ {n:"Aswang",ev:["EMF Level 5","Inscription","Wither"],tell:"Each unique hunter killed increases its speed by 20%. Walking through salt slows it."},
+ {n:"Banshee",ev:["Freezing Temperatures","Ghost Orb","Prints"],tell:"Often breaks glass and may let out a distinctive wail at the start of a hunt.",sound:""},
+ {n:"Demon",ev:["EMF Level 5","Freezing Temperatures","Prints"],tell:"Hunts frequently. Crosses have a larger effective range against it and may float while burning."},
+ {n:"Doppelganger",ev:["Freezing Temperatures","Inscription","Spirit Box"],fake:"Ghost Orb",tell:"Can produce a false Ghost Orb and mimic other ghosts' abilities. Confirm its other evidence before deciding."},
+ {n:"Dullahan",ev:["Freezing Temperatures","Laser Projector","Wither"],tell:"Speeds up when a hunter is in its line of sight. Appears headless in photographs."},
+ {n:"Dybbuk",ev:["Freezing Temperatures","Prints","Wither"],tell:"Can throw corpses. Playing a music box initially stuns it."},
+ {n:"Entity",ev:["Prints","Laser Projector","Spirit Box"],tell:"Can teleport while roaming or hunting, and can teleport objects before throwing them."},
+ {n:"Ghoul",ev:["Freezing Temperatures","Ghost Orb","Spirit Box"],tell:"Using the Spirit Box can trigger a hunt. It cannot switch electronic equipment on or off during hunts."},
+ {n:"Keres",ev:["Prints","Spirit Box","Wither"],tell:"Targets the hunter with the least energy and slows by 10% per kill. In solo play, it only targets you below 90% energy."},
+ {n:"Leviathan",ev:["Inscription","Prints","Ghost Orb"],tell:"Can make nearby equipment flicker and disable lights outside hunts."},
+ {n:"Nightmare",ev:["EMF Level 5","Ghost Orb","Spirit Box"],tell:"Causes hallucinations and is more likely to hunt in the dark."},
+ {n:"Oni",ev:["Freezing Temperatures","Laser Projector","Spirit Box"],tell:"Can sprint during hunts and manifests more often."},
+ {n:"Phantom",ev:["EMF Level 5","Prints","Ghost Orb"],tell:"Blinks less frequently during hunts and moves faster while invisible."},
+ {n:"Ravager",ev:["EMF Level 5","Inscription","Spirit Box"],tell:"Can throw multiple objects or form a vortex. Its ghost events leave EMF Level 5 readings."},
+ {n:"Revenant",ev:["EMF Level 5","Freezing Temperatures","Inscription"],tell:"Has a short cooldown between hunts, but ends a hunt immediately after killing a hunter."},
+ {n:"Shadow",ev:["EMF Level 5","Inscription","Laser Projector"],tell:"Changes room temperature only slightly and is less active in well-lit rooms."},
+ {n:"Siren",ev:["EMF Level 5","Spirit Box","Wither"],tell:"Slows hunters in its line of sight. Uses a feminine voice on the Spirit Box and may hum."},
+ {n:"Specter",ev:["EMF Level 5","Freezing Temperatures","Laser Projector"],tell:"Throws objects frequently and rarely roams."},
+ {n:"Spirit",ev:["Inscription","Prints","Spirit Box"],tell:"Can change the color of flames."},
+ {n:"The Wisp",ev:["Ghost Orb","Laser Projector","Wither"],tell:"Can only start a hunt in its favorite room. Can light candles and walk through Holy Oil fire."},
+ {n:"Umbra",ev:["Prints","Ghost Orb","Laser Projector"],tell:"Makes no footstep sounds and slows down in lit rooms."},
+ {n:"Vesper",ev:["Inscription","Prints","Wither"],tell:"Uses sound to locate hunters rather than sight."},
+ {n:"Vex",ev:["Freezing Temperatures","Ghost Orb","Wither"],tell:"Can walk through walls and does not appear on LIDAR scans."},
+ {n:"Wraith",ev:["EMF Level 5","Laser Projector","Spirit Box"],tell:"Drains nearby hunters' energy by 0.2–0.4% per second and leaves salt undisturbed."},
+ {n:"Wretch",ev:["Inscription","Ghost Orb","Laser Projector"],tell:"Can sprint as average energy falls. Does not start hunts near a lit flame."}
+];
+// ====== END OF DATA ======
+
+const st = {ev:{}, q:"", done:new Set()};
+const $ = id => document.getElementById(id);
+
+function build(){
+  $("evs").innerHTML = "";
+  EVIDENCE.forEach(e=>{
+    const b = document.createElement("button");
+    b.className="ev"; b.dataset.s="0";
+    b.innerHTML = '<span class="box"></span>'+e;
+    b.onclick = ()=>{
+      const s = ((st.ev[e]||0)+1)%3; st.ev[e]=s; b.dataset.s=s;
+      b.querySelector(".box").textContent = ["","✓","✕"][s];
+      render();
+    };
+    $("evs").append(b);
+  });
+}
+function matches(g){
+  for(const [e,s] of Object.entries(st.ev)){
+    const has = g.ev.includes(e), fake = g.fake===e;
+    if(s===1 && !has && !fake) return false;
+    if(s===2 && has) return false;
+  }
+  return g.n.toLowerCase().includes(st.q);
+}
+function render(){
+  const found = Object.entries(st.ev).filter(([,s])=>s===1).map(([e])=>e);
+  let n=0;
+  $("grid").innerHTML = "";
+  GHOSTS.forEach(g=>{
+    const m = matches(g); if(m) n++;
+    const d = document.createElement("div");
+    d.className = "g"+(m?"":" dim")+(st.done.has(g.n)?" done":"");
+    d.title = "Click to cross out this ghost";
+    d.onclick = ()=>{st.done.has(g.n)?st.done.delete(g.n):st.done.add(g.n);render()};
+    d.innerHTML = `<h3>${g.n}</h3>
+      <div class="tags">${g.ev.map(e=>`<span class="tag${found.includes(e)?" on":""}">${e}</span>`).join("")}${g.fake?`<span class="tag">(fake: ${g.fake})</span>`:""}</div>
+      <p class="tell">${g.tell}</p>`;
+    if(g.sound){
+      const b=document.createElement("button"); b.className="btn"; b.textContent="Listen";
+      b.onclick=e=>{e.stopPropagation();new Audio(g.sound).play()};
+      d.append(b);
+    }
+    $("grid").append(d);
+  });
+  $("count").textContent = n+" possible ghost"+(n===1?"":"s")+" out of "+GHOSTS.length;
+}
+$("q").oninput=e=>{st.q=e.target.value.trim().toLowerCase();render()};
+$("reset").onclick=()=>{
+  st.ev={};st.q="";st.done.clear();$("q").value="";
+  build();render();
+};
+build();render();
+</script>
+</body>
+</html>
