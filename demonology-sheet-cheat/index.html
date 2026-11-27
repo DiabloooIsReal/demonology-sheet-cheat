@@ -1,77 +1,340 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Demonology - Tool</title>
+
 <style>
-:root{--bg:#14101c;--panel:#201a2e;--card:#2b2340;--line:#4a3d6b;--text:#ece8f5;--mute:#9a90b3;--ok:#7be0a0;--no:#ff6b7a;--acc:#b794f6}
+:root{
+  --bg:#14101c;
+  --panel:#201a2e;
+  --card:#2b2340;
+  --line:#4a3d6b;
+  --text:#ece8f5;
+  --mute:#9a90b3;
+  --ok:#7be0a0;
+  --no:#ff6b7a;
+  --acc:#b794f6
+}
+
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:15px/1.4 Georgia,"Times New Roman",serif}
-.top{display:flex;justify-content:flex-end;max-width:1500px;margin:auto;padding:12px 16px 0}
-.lang{display:flex;gap:8px}
-.flag{width:38px;height:26px;padding:0;border:2px solid transparent;border-radius:5px;overflow:hidden;background:none;cursor:pointer;opacity:.55}
-.flag svg{display:block;width:100%;height:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:15px/1.4 Georgia,"Times New Roman",serif
+}
+
+.top{
+  display:flex;
+  justify-content:flex-end;
+  max-width:1500px;
+  margin:auto;
+  padding:12px 16px 0
+}
+
+.lang{
+  display:flex;
+  gap:8px
+}
+
+.flag{
+  width:38px;
+  height:26px;
+  padding:0;
+  border:2px solid transparent;
+  border-radius:5px;
+  overflow:hidden;
+  background:none;
+  cursor:pointer;
+  opacity:.55
+}
+
+.flag svg{
+  display:block;
+  width:100%;
+  height:100%
+}
+
 .flag:hover{opacity:1}
 .flag.on{opacity:1;border-color:var(--acc)}
-.wrap{display:flex;gap:16px;padding:16px;max-width:1500px;margin:auto}
-aside{width:250px;flex:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;align-self:flex-start;position:sticky;top:16px}
-h1{margin:0 0 4px;font-size:22px;letter-spacing:.04em}
-h2{margin:18px 0 8px;font-size:17px;color:var(--acc);font-weight:normal}
-.ev{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;margin:4px 0;background:var(--card);border:1px solid var(--line);border-radius:8px;color:var(--text);font:inherit;cursor:pointer;text-align:left}
-.ev .box{width:18px;height:18px;flex:none;border:2px solid var(--mute);border-radius:4px;display:grid;place-items:center;font-size:13px;line-height:1}
-.ev[data-s="1"]{border-color:var(--ok)}.ev[data-s="1"] .box{background:var(--ok);border-color:var(--ok);color:#10261a}
-.ev[data-s="2"]{border-color:var(--no);opacity:.8}.ev[data-s="2"] .box{background:var(--no);border-color:var(--no);color:#2a0d12}
-input[type=search]{width:100%;padding:8px 10px;background:var(--card);border:1px solid var(--line);border-radius:8px;color:var(--text);font:inherit}
-.btn{width:100%;margin-top:16px;padding:9px;background:none;color:var(--text);border:1px solid var(--line);border-radius:8px;font:inherit;cursor:pointer}
-.btn:hover,.ev:hover,.snd:hover{border-color:var(--acc)}
-:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+
+.wrap{
+  display:flex;
+  gap:16px;
+  padding:16px;
+  max-width:1500px;
+  margin:auto
+}
+
+aside{
+  width:250px;
+  flex:none;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:14px;
+  align-self:flex-start;
+  position:sticky;
+  top:16px
+}
+
+h1{
+  margin:0 0 4px;
+  font-size:22px;
+  letter-spacing:.04em
+}
+
+h2{
+  margin:18px 0 8px;
+  font-size:17px;
+  color:var(--acc);
+  font-weight:normal
+}
+
+.ev{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:100%;
+  padding:8px 10px;
+  margin:4px 0;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:8px;
+  color:var(--text);
+  font:inherit;
+  cursor:pointer;
+  text-align:left
+}
+
+.ev .box{
+  width:18px;
+  height:18px;
+  flex:none;
+  border:2px solid var(--mute);
+  border-radius:4px;
+  display:grid;
+  place-items:center;
+  font-size:13px;
+  line-height:1
+}
+
+.ev[data-s="1"]{border-color:var(--ok)}
+.ev[data-s="1"] .box{
+  background:var(--ok);
+  border-color:var(--ok);
+  color:#10261a
+}
+
+.ev[data-s="2"]{
+  border-color:var(--no);
+  opacity:.8
+}
+
+.ev[data-s="2"] .box{
+  background:var(--no);
+  border-color:var(--no);
+  color:#2a0d12
+}
+
+input[type=search]{
+  width:100%;
+  padding:8px 10px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:8px;
+  color:var(--text);
+  font:inherit
+}
+
+.btn{
+  width:100%;
+  margin-top:16px;
+  padding:9px;
+  background:none;
+  color:var(--text);
+  border:1px solid var(--line);
+  border-radius:8px;
+  font:inherit;
+  cursor:pointer
+}
+
+.btn:hover,.ev:hover,.snd:hover{
+  border-color:var(--acc)
+}
+
+:focus-visible{
+  outline:2px solid var(--acc);
+  outline-offset:2px
+}
+
 small{color:var(--mute)}
-main{flex:1;min-width:0}
-#count{margin:0 0 12px;color:var(--mute)}
-#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
-.g{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer}
+
+main{
+  flex:1;
+  min-width:0
+}
+
+#count{
+  margin:0 0 12px;
+  color:var(--mute)
+}
+
+#grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+  gap:12px
+}
+
+.g{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:12px 14px;
+  cursor:pointer
+}
+
 .g.dim{opacity:.18}
-.g.done{text-decoration:line-through;opacity:.35}
-.g h3{margin:0 0 8px;font-size:20px;letter-spacing:.03em}
-.tags{display:flex;flex-wrap:wrap;gap:6px 10px;margin-bottom:8px}
-.tag{font-size:13px;color:var(--mute)}
-.tag.on{color:var(--ok);font-weight:bold}
-.tell{margin:8px 0 0;font-size:13px;border-top:1px dashed var(--line);padding-top:8px}
-.sounds{display:flex;flex-direction:column;gap:6px;margin-top:10px}
-.snd{display:flex;align-items:center;gap:8px;width:100%;padding:6px 10px;background:none;color:var(--text);border:1px solid var(--line);border-radius:8px;font:inherit;font-size:13px;cursor:pointer;text-align:left}
-.snd.play{border-color:var(--ok);color:var(--ok)}
-@media(max-width:760px){.wrap{flex-direction:column}aside{width:100%;position:static}}
+.g.done{
+  text-decoration:line-through;
+  opacity:.35
+}
+
+.g h3{
+  margin:0 0 8px;
+  font-size:20px;
+  letter-spacing:.03em
+}
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px 10px;
+  margin-bottom:8px
+}
+
+.tag{
+  font-size:13px;
+  color:var(--mute)
+}
+
+.tag.on{
+  color:var(--ok);
+  font-weight:bold
+}
+
+.tell{
+  margin:8px 0 0;
+  font-size:13px;
+  border-top:1px dashed var(--line);
+  padding-top:8px;
+  white-space:pre-line
+}
+
+.sounds{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:10px
+}
+
+.snd{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  width:100%;
+  padding:6px 10px;
+  background:none;
+  color:var(--text);
+  border:1px solid var(--line);
+  border-radius:8px;
+  font:inherit;
+  font-size:13px;
+  cursor:pointer;
+  text-align:left
+}
+
+.snd.play{
+  border-color:var(--ok);
+  color:var(--ok)
+}
+
+@media(max-width:760px){
+  .wrap{flex-direction:column}
+  aside{
+    width:100%;
+    position:static
+  }
+}
 </style>
 </head>
+
 <body>
+
 <header class="top">
   <div class="lang">
-        <button class="flag" data-l="fr" title="Français" aria-label="Français"><svg viewBox="0 0 3 2" preserveAspectRatio="none"><rect width="1" height="2" fill="#0055a4"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ef4135"/></svg></button>
-    <button class="flag" data-l="en" title="English" aria-label="English"><svg viewBox="0 0 60 30" preserveAspectRatio="none"><rect width="60" height="30" fill="#012169"/><path d="M0 0L60 30M60 0L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0L60 30M60 0L0 30" stroke="#c8102e" stroke-width="2"/><path d="M30 0V30M0 15H60" stroke="#fff" stroke-width="10"/><path d="M30 0V30M0 15H60" stroke="#c8102e" stroke-width="6"/></svg></button>
-    <button class="flag" data-l="ru" title="Русский" aria-label="Русский"><svg viewBox="0 0 3 2" preserveAspectRatio="none"><rect width="3" height="2" fill="#fff"/><rect y="0.667" width="3" height="0.667" fill="#0039a6"/><rect y="1.333" width="3" height="0.667" fill="#d52b1e"/></svg></button>
+
+    <button class="flag" data-l="fr" title="Français" aria-label="Français">
+      <svg viewBox="0 0 3 2" preserveAspectRatio="none">
+        <rect width="1" height="2" fill="#0055a4"/>
+        <rect x="1" width="1" height="2" fill="#fff"/>
+        <rect x="2" width="1" height="2" fill="#ef4135"/>
+      </svg>
+    </button>
+
+    <button class="flag" data-l="en" title="English" aria-label="English">
+      <svg viewBox="0 0 60 30" preserveAspectRatio="none">
+        <rect width="60" height="30" fill="#012169"/>
+        <path d="M0 0L60 30M60 0L0 30" stroke="#fff" stroke-width="6"/>
+        <path d="M0 0L60 30M60 0L0 30" stroke="#c8102e" stroke-width="2"/>
+        <path d="M30 0V30M0 15H60" stroke="#fff" stroke-width="10"/>
+        <path d="M30 0V30M0 15H60" stroke="#c8102e" stroke-width="6"/>
+      </svg>
+    </button>
+
+    <button class="flag" data-l="ru" title="Русский" aria-label="Русский">
+      <svg viewBox="0 0 3 2" preserveAspectRatio="none">
+        <rect width="3" height="2" fill="#fff"/>
+        <rect y="0.667" width="3" height="0.667" fill="#0039a6"/>
+        <rect y="1.333" width="3" height="0.667" fill="#d52b1e"/>
+      </svg>
+    </button>
+
   </div>
 </header>
+
 <div class="wrap">
+
 <aside>
   <h1>Demonology</h1>
   <small id="hint"></small>
+
   <h2 id="t-ev"></h2>
   <div id="evs"></div>
+
   <h2 id="t-search"></h2>
   <input type="search" id="q">
+
   <button class="btn" id="reset"></button>
 </aside>
+
 <main>
   <p id="count"></p>
   <div id="grid"></div>
 </main>
+
 </div>
 
 <script>
+
 const LANGS = ["fr","en","ru"];
 
 const I18N = {
+
   en:{
     title:"Demonology - Tool",
     hint:"Click an evidence: found → excluded → neutral",
@@ -80,11 +343,24 @@ const I18N = {
     placeholder:"Ghost name…",
     reset:"Reset",
     cross:"Click to cross out this ghost",
-    fake:"fake",
-    play:"Play / stop",
-    count:(n,t)=>n+" possible ghost"+(n===1?"":"s")+" out of "+t,
-    ev:{"EMF Level 5":"EMF Level 5","Inscription":"Inscription","Wither":"Wither","Freezing Temperatures":"Freezing Temperatures","Ghost Orb":"Ghost Orb","Prints":"Prints","Spirit Box":"Spirit Box","Laser Projector":"Laser Projector"}
+    fake:"Fake",
+    play:"Play / Stop",
+
+    count:(n,t)=>
+      n+" possible ghost"+(n===1?"":"s")+" out of "+t,
+
+    ev:{
+      "EMF Level 5":"EMF Level 5",
+      "Inscription":"Inscription",
+      "Wither":"Wither",
+      "Freezing Temperatures":"Freezing Temperatures",
+      "Ghost Orb":"Ghost Orb",
+      "Prints":"Fingerprints",
+      "Spirit Box":"Spirit Box",
+      "Laser Projector":"Laser Projector"
+    }
   },
+
   fr:{
     title:"Demonology - Outil",
     hint:"Cliquez sur une preuve : trouvée → exclue → neutre",
@@ -93,11 +369,24 @@ const I18N = {
     placeholder:"Nom du fantôme…",
     reset:"Réinitialiser",
     cross:"Cliquez pour barrer ce fantôme",
-    fake:"faux",
-    play:"Lecture / arrêt",
-    count:(n,t)=>n+" fantôme"+(n>1?"s":"")+" possible"+(n>1?"s":"")+" sur "+t,
-    ev:{"EMF Level 5":"EMF niveau 5","Inscription":"Inscription","Wither":"Flétrissement","Freezing Temperatures":"Températures glaciales","Ghost Orb":"Orbe fantomatique","Prints":"Empreintes","Spirit Box":"Spirit Box","Laser Projector":"Projecteur laser"}
+    fake:"Fausse",
+    play:"Lecture / Arrêt",
+
+    count:(n,t)=>
+      n+" fantôme"+(n>1?"s":"")+" possible"+(n>1?"s":"")+" sur "+t,
+
+    ev:{
+      "EMF Level 5":"EMF niveau 5",
+      "Inscription":"Inscription",
+      "Wither":"Flétrissement",
+      "Freezing Temperatures":"Températures glaciales",
+      "Ghost Orb":"Orbe fantomatique",
+      "Prints":"Empreintes digitales",
+      "Spirit Box":"Spirit Box",
+      "Laser Projector":"Projecteur laser"
+    }
   },
+
   ru:{
     title:"Demonology - Инструмент",
     hint:"Нажмите на улику: найдена → исключена → нейтрально",
@@ -106,252 +395,639 @@ const I18N = {
     placeholder:"Имя призрака…",
     reset:"Сбросить",
     cross:"Нажмите, чтобы вычеркнуть призрака",
-    fake:"ложная",
-    play:"Играть / стоп",
-    count:(n,t)=>"Возможных призраков: "+n+" из "+t,
-    ev:{"EMF Level 5":"ЭМП 5 уровня","Inscription":"Надпись","Wither":"Увядание","Freezing Temperatures":"Низкая температура","Ghost Orb":"Призрачный шар","Prints":"Отпечатки","Spirit Box":"Спирит-бокс","Laser Projector":"Лазерный проектор"}
+    fake:"Ложная",
+    play:"Играть / Стоп",
+
+    count:(n,t)=>
+      "Возможных призраков: "+n+" из "+t,
+
+    ev:{
+      "EMF Level 5":"ЭМП 5 уровня",
+      "Inscription":"Надпись",
+      "Wither":"Увядание",
+      "Freezing Temperatures":"Низкая температура",
+      "Ghost Orb":"Призрачный шар",
+      "Prints":"Отпечатки",
+      "Spirit Box":"Спирит-бокс",
+      "Laser Projector":"Лазерный проектор"
+    }
   }
+
 };
 
-const EVIDENCE = ["EMF Level 5","Inscription","Wither","Freezing Temperatures","Ghost Orb","Prints","Spirit Box","Laser Projector"];
-
-const GHOSTS = [
- {n:"Aswang",ev:["EMF Level 5","Inscription","Wither"],t:[
-  "Each unique hunter killed increases its speed by 20%. Walking through salt slows it.",
-  "Chaque chasseur unique tué augmente sa vitesse de 20 %. Traverser du sel la ralentit.",
-  "Каждый убитый уникальный охотник повышает её скорость на 20%. Соль замедляет её."]},
- {n:"Banshee",ev:["Freezing Temperatures","Ghost Orb","Prints"],t:[
-  "Often breaks glass and may let out a distinctive wail at the start of a hunt.",
-  "Brise souvent le verre et peut pousser un cri distinctif au début d'une chasse.",
-  "Часто бьёт стекло и может издать характерный вопль в начале охоты."],
-  s:[{l:["Banshee distinct hunt scream","Banshee : cri distinctif de chasse","Banshee: характерный вопль охоты"],f:"sound-effects/Banshee_Distinct_Hunt_Scream.mp3"}]},
- {n:"Demon",ev:["EMF Level 5","Freezing Temperatures","Prints"],t:[
-  "Hunts frequently. Crosses have a larger effective range against it and may float while burning.",
-  "Chasse fréquemment. Les croix ont une portée efficace plus grande contre lui et peuvent flotter en brûlant.",
-  "Охотится часто. Кресты действуют на него на большем расстоянии и могут парить, пока горят."]},
- {n:"Doppelganger",ev:["Freezing Temperatures","Inscription","Spirit Box"],fake:"Ghost Orb",t:[
-  "Can produce a false Ghost Orb and mimic other ghosts' abilities. Confirm its other evidence before deciding.",
-  "Peut produire un faux Ghost Orb et imiter les capacités d'autres fantômes. Confirmez ses autres preuves avant de décider.",
-  "Может создавать ложный призрачный шар и копировать способности других призраков. Прежде чем решать, подтвердите остальные улики."]},
- {n:"Dullahan",ev:["Freezing Temperatures","Laser Projector","Wither"],t:[
-  "Speeds up when a hunter is in its line of sight. Appears headless in photographs.",
-  "Accélère quand un chasseur est dans sa ligne de vue. Apparaît sans tête sur les photos.",
-  "Ускоряется, когда охотник в зоне его видимости. На фотографиях выглядит безголовым."]},
- {n:"Dybbuk",ev:["Freezing Temperatures","Prints","Wither"],t:[
-  "Can throw corpses. Playing a music box initially stuns it.",
-  "Peut lancer des cadavres. Jouer une boîte à musique l'étourdit au début.",
-  "Может бросать трупы. Музыкальная шкатулка поначалу оглушает его."]},
- {n:"Entity",ev:["Prints","Laser Projector","Spirit Box"],t:[
-  "Can teleport while roaming or hunting, and can teleport objects before throwing them.",
-  "Peut se téléporter en rôdant ou en chassant, et téléporter des objets avant de les lancer.",
-  "Может телепортироваться во время блуждания или охоты и телепортировать предметы перед броском."]},
- {n:"Ghoul",ev:["Freezing Temperatures","Ghost Orb","Spirit Box"],t:[
-  "Using the Spirit Box can trigger a hunt. It cannot switch electronic equipment on or off during hunts.",
-  "Utiliser la Spirit Box peut déclencher une chasse. Ne peut pas allumer ni éteindre l'équipement électronique pendant les chasses.",
-  "Использование спирит-бокса может спровоцировать охоту. Не может включать и выключать электронику во время охоты."]},
- {n:"Keres",ev:["Prints","Spirit Box","Wither"],t:[
-  "Targets the hunter with the least energy and slows by 10% per kill. In solo play, it only targets you below 90% energy.",
-  "Cible le chasseur ayant le moins d'énergie et ralentit de 10 % par mort. En solo, ne vous cible que sous 90 % d'énergie.",
-  "Преследует охотника с наименьшей энергией и замедляется на 10% за каждое убийство. В одиночной игре нацеливается на вас только при энергии ниже 90%."]},
- {n:"Leviathan",ev:["Inscription","Prints","Ghost Orb"],t:[
-  "Can make nearby equipment flicker and disable lights outside hunts.",
-  "Peut faire clignoter l'équipement proche et couper les lumières en dehors des chasses.",
-  "Может заставлять мигать оборудование поблизости и отключать свет вне охоты."],
-  s:[{l:["Leviathan EMF flicker","Leviathan : scintillement EMF","Leviathan: мерцание ЭМП"],f:"sound-effects/EmfFlickerLeviathan.mp3"}]},
- {n:"Nightmare",ev:["EMF Level 5","Ghost Orb","Spirit Box"],t:[
-  "Causes hallucinations and is more likely to hunt in the dark.",
-  "Provoque des hallucinations et chasse plus souvent dans le noir.",
-  "Вызывает галлюцинации и чаще охотится в темноте."]},
- {n:"Oni",ev:["Freezing Temperatures","Laser Projector","Spirit Box"],t:[
-  "Can sprint from fast-slow & slow-fast during hunts and manifests more often.",
-  "Peut aller de vite-à-lent & lent-à-vite pendant les chasses et se manifeste plus souvent.",
-  "Может бегать во время охоты и проявляется чаще."]},
- {n:"Phantom",ev:["EMF Level 5","Prints","Ghost Orb"],t:[
-  "Blinks less frequently during hunts and moves faster while invisible.",
-  "Cligne moins souvent pendant les chasses et se déplace plus vite lorsqu'il est invisible.",
-  "Реже мигает во время охоты и быстрее двигается, будучи невидимым."]},
- {n:"Ravager",ev:["EMF Level 5","Inscription","Spirit Box"],t:[
-  "Can throw multiple objects or form a vortex. Its ghost events leave EMF Level 5 readings. \n(Makes a laser gun sound when throwing an object)",
-  "Peut lancer plusieurs objets ou former un vortex. Ses événements provoque un EMF niveau 5. \n(bruit de tir laser quand il balance un objet)",
-  "Может бросать несколько предметов сразу или создавать вихрь. Его события дают показания ЭМП 5 уровня. \n(Издаёт звук лазерного оружия при броске предмета)"],},
- {n:"Revenant",ev:["EMF Level 5","Freezing Temperatures","Inscription"],t:[
-  "Has a short cooldown between hunts, but ends a hunt immediately after killing a hunter.",
-  "A un court délai entre les chasses, mais termine une chasse dès qu'il tue un chasseur.",
-  "Между охотами делает короткую паузу, но сразу завершает охоту после убийства охотника."]},
- {n:"Shadow",ev:["EMF Level 5","Inscription","Laser Projector"],t:[
-  "Changes room temperature only slightly and is less active in well-lit rooms.",
-  "Ne change que légèrement la température de la pièce et est moins actif dans les pièces éclairées.",
-  "Лишь слегка меняет температуру в комнате и менее активен в хорошо освещённых помещениях."]},
- {n:"Siren",ev:["EMF Level 5","Spirit Box","Wither"],t:[
-  "Slows hunters in its line of sight. Uses a feminine voice on the Spirit Box and may hum.",
-  "Ralentit les chasseurs dans sa ligne de vue. Utilise une voix féminine dans la Spirit Box et peut fredonner.",
-  "Замедляет охотников в зоне видимости. Говорит женским голосом через спирит-бокс и может напевать."],
-  s:[{l:["Siren humming","Siren : fredonnement","Siren: напевание"],f:"sound-effects/Siren_humming.mp3"}]},
- {n:"Specter",ev:["EMF Level 5","Freezing Temperatures","Laser Projector"],t:[
-  "Throws objects frequently and rarely roams.",
-  "Lance souvent des objets et rôde rarement.",
-  "Часто бросает предметы и редко блуждает."]},
- {n:"Spirit",ev:["Inscription","Prints","Spirit Box"],t:[
-  "Can change the color of flames.",
-  "Peut changer la couleur des flammes.",
-  "Может менять цвет пламени."]},
- {n:"The Wisp",ev:["Ghost Orb","Laser Projector","Wither"],t:[
-  "Can only start a hunt in its favorite room. Can light candles and walk through Holy Oil fire.",
-  "Ne peut commencer une chasse que dans sa pièce favorite. Peut allumer des bougies et traverser le feu de l'huile sainte.",
-  "Может начать охоту только в любимой комнате. Зажигает свечи и проходит сквозь огонь святого масла."]},
- {n:"Umbra",ev:["Prints","Ghost Orb","Laser Projector"],t:[
-  "Makes no footstep sounds and slows down in lit rooms.",
-  "Ne fait aucun bruit de pas et ralentit dans les pièces éclairées.",
-  "Не издаёт звуков шагов и замедляется в освещённых комнатах."]},
- {n:"Vesper",ev:["Inscription","Prints","Wither"],t:[
-  "Uses sound to locate hunters rather than sight.",
-  "Repère les chasseurs au son plutôt qu'à la vue.",
-  "Находит охотников по звуку, а не по зрению."]},
- {n:"Vex",ev:["Freezing Temperatures","Ghost Orb","Wither"],t:[
-  "Can walk through walls and does not appear on LIDAR scans.",
-  "Peut traverser les murs et n'apparaît pas sur les scans LIDAR.",
-  "Может проходить сквозь стены и не отображается на сканах LIDAR."]},
- {n:"Wraith",ev:["EMF Level 5","Laser Projector","Spirit Box"],t:[
-  "Drains nearby hunters' energy by 0.2–0.4% per second and leaves salt undisturbed.",
-  "Draine l'énergie des chasseurs proches de 0,2 à 0,4 % par seconde et ne dérange pas le sel.",
-  "Истощает энергию ближайших охотников на 0,2–0,4% в секунду и не нарушает соль."]},
- {n:"Wretch",ev:["Inscription","Ghost Orb","Laser Projector"],t:[
-  "Can sprint as average energy falls. Does not start hunts near a lit flame.",
-  "Peut courir quand l'énergie moyenne baisse. Ne commence pas de chasse près d'une flamme allumée.",
-  "Может бегать, когда средняя энергия падает. Не начинает охоту рядом с зажжённым огнём."]}
+const EVIDENCE = [
+  "EMF Level 5",
+  "Inscription",
+  "Wither",
+  "Freezing Temperatures",
+  "Ghost Orb",
+  "Prints",
+  "Spirit Box",
+  "Laser Projector"
 ];
 
-const st = {ev:{}, q:"", done:new Set()};
+const GHOSTS = [
+
+{
+  n:"Aswang",
+  ev:["EMF Level 5","Inscription","Wither"],
+  t:[
+    "Each unique hunter it kills increases its speed by 20%. Walking through salt slows it down.",
+    "Chaque chasseur différent qu'il tue augmente sa vitesse de 20 %. Traverser du sel le ralentit.",
+    "Каждый убитый уникальный охотник повышает её скорость на 20%. Соль замедляет её."
+  ]
+},
+
+{
+  n:"Banshee",
+  ev:["Freezing Temperatures","Ghost Orb","Prints"],
+  t:[
+    "Often breaks glass and may let out a distinctive wail at the beginning of a hunt.",
+    "Brise souvent du verre et peut pousser un cri distinctif au début d'une chasse.",
+    "Часто бьёт стекло и может издать характерный вопль в начале охоты."
+  ],
+  s:[
+    {
+      l:[
+        "Banshee's distinctive hunt scream",
+        "Cri distinctif de chasse de la Banshee",
+        "Характерный вопль охоты Банши"
+      ],
+      f:"sound-effects/Banshee_Distinct_Hunt_Scream.mp3"
+    }
+  ]
+},
+
+{
+  n:"Demon",
+  ev:["EMF Level 5","Freezing Temperatures","Prints"],
+  t:[
+    "Hunts frequently. Crucifixes have a greater effective range against it and may float while burning.",
+    "Chasse fréquemment. Les crucifix ont une portée d'action plus grande contre lui et peuvent flotter pendant qu'ils brûlent.",
+    "Охотится часто. Кресты действуют на него на большем расстоянии и могут парить, пока горят."
+  ]
+},
+
+{
+  n:"Doppelganger",
+  ev:["Freezing Temperatures","Inscription","Spirit Box"],
+  fake:"Ghost Orb",
+  t:[
+    "Can produce a fake Ghost Orb and mimic the abilities of other ghosts. Confirm its other evidence before identifying it.",
+    "Peut produire un faux orbe fantomatique et imiter les capacités d'autres fantômes. Vérifiez ses autres preuves avant de l'identifier.",
+    "Может создавать ложный призрачный шар и копировать способности других призраков. Прежде чем решать, подтвердите остальные улики."
+  ]
+},
+
+{
+  n:"Dullahan",
+  ev:["Freezing Temperatures","Laser Projector","Wither"],
+  t:[
+    "Speeds up when a hunter is in its line of sight. Appears headless in photographs.",
+    "Accélère lorsqu'un chasseur se trouve dans son champ de vision. Apparaît sans tête sur les photographies.",
+    "Ускоряется, когда охотник в зоне его видимости. На фотографиях выглядит безголовым."
+  ]
+},
+
+{
+  n:"Dybbuk",
+  ev:["Freezing Temperatures","Prints","Wither"],
+  t:[
+    "Can throw corpses. Playing a music box initially stuns it.",
+    "Peut lancer des cadavres. Jouer une boîte à musique l'étourdit au début.",
+    "Может бросать трупы. Музыкальная шкатулка поначалу оглушает его."
+  ]
+},
+
+{
+  n:"Entity",
+  ev:["Prints","Laser Projector","Spirit Box"],
+  t:[
+    "Can teleport while roaming or hunting. It can also teleport objects before throwing them.",
+    "Peut se téléporter lorsqu'il rôde ou chasse. Il peut également téléporter des objets avant de les lancer.",
+    "Может телепортироваться во время блуждания или охоты и телепортировать предметы перед броском."
+  ]
+},
+
+{
+  n:"Ghoul",
+  ev:["Freezing Temperatures","Ghost Orb","Spirit Box"],
+  t:[
+    "Using the Spirit Box can trigger a hunt. It cannot turn electronic equipment on or off during hunts.",
+    "L'utilisation de la Spirit Box peut déclencher une chasse. Il ne peut pas allumer ni éteindre les équipements électroniques pendant une chasse.",
+    "Использование спирит-бокса может спровоцировать охоту. Не может включать и выключать электронику во время охоты."
+  ]
+},
+
+{
+  n:"Keres",
+  ev:["Prints","Spirit Box","Wither"],
+  t:[
+    "Targets the hunter with the lowest energy and slows down by 10% per kill. In solo play, it only targets you when your energy is below 90%.",
+    "Cible le chasseur ayant le moins d'énergie et ralentit de 10 % à chaque élimination. En solo, il ne vous cible que lorsque votre énergie est inférieure à 90 %.",
+    "Преследует охотника с наименьшей энергией и замедляется на 10% за каждое убийство. В одиночной игре нацеливается на вас только при энергии ниже 90%."
+  ]
+},
+
+{
+  n:"Leviathan",
+  ev:["Inscription","Prints","Ghost Orb"],
+  t:[
+    "Can cause nearby equipment to flicker and turn off lights outside of hunts.",
+    "Peut faire clignoter les équipements à proximité et éteindre les lumières en dehors des chasses.",
+    "Может заставлять мигать оборудование поблизости и отключать свет вне охоты."
+  ],
+  s:[
+    {
+      l:[
+        "Leviathan EMF flicker",
+        "Scintillement EMF du Leviathan",
+        "Мерцание ЭМП Левиафана"
+      ],
+      f:"sound-effects/EmfFlickerLeviathan.mp3"
+    }
+  ]
+},
+
+{
+  n:"Nightmare",
+  ev:["EMF Level 5","Ghost Orb","Spirit Box"],
+  t:[
+    "Causes hallucinations and is more likely to hunt in the dark.",
+    "Provoque des hallucinations et a davantage tendance à chasser dans l'obscurité.",
+    "Вызывает галлюцинации и чаще охотится в темноте."
+  ]
+},
+
+{
+  n:"Oni",
+  ev:["Freezing Temperatures","Laser Projector","Spirit Box"],
+  t:[
+    "Can switch between fast and slow movement during hunts and manifests more frequently.",
+    "Peut alterner entre des déplacements rapides et lents pendant les chasses et se manifeste plus souvent.",
+    "Может бегать во время охоты и проявляется чаще."
+  ]
+},
+
+{
+  n:"Phantom",
+  ev:["EMF Level 5","Prints","Ghost Orb"],
+  t:[
+    "Blinks less frequently during hunts and moves faster while invisible.",
+    "Clignote moins souvent pendant les chasses et se déplace plus rapidement lorsqu'il est invisible.",
+    "Реже мигает во время охоты и быстрее двигается, будучи невидимым."
+  ]
+},
+
+{
+  n:"Ravager",
+  ev:["EMF Level 5","Inscription","Spirit Box"],
+  t:[
+    "Can throw multiple objects or create a vortex. Its ghost events produce EMF Level 5 readings.\n(Makes a laser-gun sound when throwing an object.)",
+    "Peut lancer plusieurs objets à la fois ou créer un vortex. Ses manifestations paranormales produisent des relevés EMF de niveau 5.\n(Émet un bruit de tir laser lorsqu'il lance un objet.)",
+    "Может бросать несколько предметов сразу или создавать вихрь. Его события дают показания ЭМП 5 уровня. \n(Издаёт звук лазерного оружия при броске предмета.)"
+  ]
+},
+
+{
+  n:"Revenant",
+  ev:["EMF Level 5","Freezing Temperatures","Inscription"],
+  t:[
+    "Has a short cooldown between hunts, but immediately ends a hunt after killing a hunter.",
+    "A un court délai de récupération entre les chasses, mais met immédiatement fin à une chasse après avoir tué un chasseur.",
+    "Между охотами делает короткую паузу, но сразу завершает охоту после убийства охотника."
+  ]
+},
+
+{
+  n:"Shadow",
+  ev:["EMF Level 5","Inscription","Laser Projector"],
+  t:[
+    "Only slightly changes the room temperature and is less active in well-lit rooms.",
+    "Ne modifie que légèrement la température de la pièce et est moins actif dans les pièces bien éclairées.",
+    "Лишь слегка меняет температуру в комнате и менее активен в хорошо освещённых помещениях."
+  ]
+},
+
+{
+  n:"Siren",
+  ev:["EMF Level 5","Spirit Box","Wither"],
+  t:[
+    "Slows hunters in its line of sight. Uses a feminine voice on the Spirit Box and may hum.",
+    "Ralentit les chasseurs dans son champ de vision. Utilise une voix féminine sur la Spirit Box et peut fredonner.",
+    "Замедляет охотников в зоне видимости. Говорит женским голосом через спирит-бокс и может напевать."
+  ],
+  s:[
+    {
+      l:[
+        "Siren humming",
+        "Fredonnement de la Sirène",
+        "Напевание Сирены"
+      ],
+      f:"sound-effects/Siren_humming.mp3"
+    }
+  ]
+},
+
+{
+  n:"Specter",
+  ev:["EMF Level 5","Freezing Temperatures","Laser Projector"],
+  t:[
+    "Throws objects frequently and rarely roams.",
+    "Lance fréquemment des objets et rôde rarement.",
+    "Часто бросает предметы и редко блуждает."
+  ]
+},
+
+{
+  n:"Spirit",
+  ev:["Inscription","Prints","Spirit Box"],
+  t:[
+    "Can change the colour of flames.",
+    "Peut changer la couleur des flammes.",
+    "Может менять цвет пламени."
+  ]
+},
+
+{
+  n:"The Wisp",
+  ev:["Ghost Orb","Laser Projector","Wither"],
+  t:[
+    "Can only start a hunt in its favourite room. Can light candles and walk through Holy Oil fire.",
+    "Ne peut commencer une chasse que dans sa pièce préférée. Peut allumer des bougies et traverser les flammes de l'huile sacrée.",
+    "Может начать охоту только в любимой комнате. Зажигает свечи и проходит сквозь огонь святого масла."
+  ]
+},
+
+{
+  n:"Umbra",
+  ev:["Prints","Ghost Orb","Laser Projector"],
+  t:[
+    "Makes no footsteps sounds and slows down in lit rooms.",
+    "Ne produit aucun bruit de pas et ralentit dans les pièces éclairées.",
+    "Не издаёт звуков шагов и замедляется в освещённых комнатах."
+  ]
+},
+
+{
+  n:"Vesper",
+  ev:["Inscription","Prints","Wither"],
+  t:[
+    "Uses sound rather than sight to locate hunters.",
+    "Utilise le son plutôt que la vue pour localiser les chasseurs.",
+    "Находит охотников по звуку, а не по зрению."
+  ]
+},
+
+{
+  n:"Vex",
+  ev:["Freezing Temperatures","Ghost Orb","Wither"],
+  t:[
+    "Can walk through walls and does not appear on LIDAR scans.",
+    "Peut traverser les murs et n'apparaît pas sur les scans LIDAR.",
+    "Может проходить сквозь стены и не отображается на сканах LIDAR."
+  ]
+},
+
+{
+  n:"Wraith",
+  ev:["EMF Level 5","Laser Projector","Spirit Box"],
+  t:[
+    "Drains the energy of nearby hunters by 0.2–0.4% per second and leaves salt undisturbed.",
+    "Draine l'énergie des chasseurs proches de 0,2 à 0,4 % par seconde et ne laisse aucune trace dans le sel.",
+    "Истощает энергию ближайших охотников на 0,2–0,4% в секунду и не нарушает соль."
+  ]
+},
+
+{
+  n:"Wretch",
+  ev:["Inscription","Ghost Orb","Laser Projector"],
+  t:[
+    "Can sprint as the average hunter energy decreases. Does not start hunts near a lit flame.",
+    "Peut courir plus vite lorsque l'énergie moyenne des chasseurs diminue. Ne commence pas de chasse à proximité d'une flamme allumée.",
+    "Может бегать, когда средняя энергия падает. Не начинает охоту рядом с зажжённым огнём."
+  ]
+}
+
+];
+
+const st = {
+  ev:{},
+  q:"",
+  done:new Set()
+};
+
 const $ = id => document.getElementById(id);
+
 let lang = "en";
-let audio = null, playingBtn = null;
+let audio = null;
+let playingBtn = null;
 
 try {
   const saved = localStorage.getItem("lang");
-  if (LANGS.includes(saved)) lang = saved;
-  else {
-    const b = (navigator.language || "").slice(0,2);
-    if (LANGS.includes(b)) lang = b;
+
+  if (LANGS.includes(saved)) {
+    lang = saved;
+  } else {
+    const browserLang = (navigator.language || "").slice(0,2);
+
+    if (LANGS.includes(browserLang)) {
+      lang = browserLang;
+    }
   }
-} catch (e) {}
+} catch(e) {}
 
 const T = () => I18N[lang];
 const LI = () => LANGS.indexOf(lang);
 
 function stopAudio(){
-  if (audio) { audio.pause(); audio = null; }
-  if (playingBtn) { playingBtn.classList.remove("play"); playingBtn = null; }
+
+  if(audio){
+    audio.pause();
+    audio = null;
+  }
+
+  if(playingBtn){
+    playingBtn.classList.remove("play");
+    playingBtn = null;
+  }
+
 }
 
-function playSound(file, btn){
+function playSound(file,btn){
+
   const same = playingBtn === btn;
+
   stopAudio();
-  if (same) return;
+
+  if(same) return;
+
   audio = new Audio(file);
   playingBtn = btn;
+
   btn.classList.add("play");
-  audio.onended = () => { btn.classList.remove("play"); playingBtn = null; };
-  audio.play().catch(() => { btn.classList.remove("play"); playingBtn = null; });
+
+  audio.onended = () => {
+    btn.classList.remove("play");
+    playingBtn = null;
+    audio = null;
+  };
+
+  audio.onerror = () => {
+    btn.classList.remove("play");
+    playingBtn = null;
+    audio = null;
+  };
+
+  audio.play().catch(() => {
+    btn.classList.remove("play");
+    playingBtn = null;
+    audio = null;
+  });
+
 }
 
 function build(){
+
   $("evs").innerHTML = "";
+
   EVIDENCE.forEach(e => {
+
     const s = st.ev[e] || 0;
+
     const b = document.createElement("button");
+
     b.className = "ev";
     b.dataset.s = s;
-    b.innerHTML = '<span class="box">' + ["","✓","✕"][s] + '</span><span></span>';
-    b.lastChild.textContent = T().ev[e];
+
+    const box = document.createElement("span");
+    box.className = "box";
+    box.textContent = ["","✓","✕"][s];
+
+    const label = document.createElement("span");
+    label.textContent = T().ev[e];
+
+    b.append(box,label);
+
     b.onclick = () => {
+
       const n = ((st.ev[e] || 0) + 1) % 3;
+
       st.ev[e] = n;
+
       b.dataset.s = n;
-      b.querySelector(".box").textContent = ["","✓","✕"][n];
+      box.textContent = ["","✓","✕"][n];
+
       render();
+
     };
+
     $("evs").append(b);
+
   });
+
 }
 
 function matches(g){
-  for (const [e,s] of Object.entries(st.ev)) {
-    const has = g.ev.includes(e), fake = g.fake === e;
-    if (s === 1 && !has && !fake) return false;
-    if (s === 2 && has) return false;
+
+  for(const [e,s] of Object.entries(st.ev)){
+
+    const has = g.ev.includes(e);
+    const fake = g.fake === e;
+
+    if(s === 1 && !has && !fake) return false;
+
+    if(s === 2 && has) return false;
+
   }
+
   return g.n.toLowerCase().includes(st.q);
+
 }
 
 function render(){
-  const tr = T(), li = LI();
-  const found = Object.entries(st.ev).filter(([,s]) => s === 1).map(([e]) => e);
+
+  const tr = T();
+  const li = LI();
+
+  const found = Object.entries(st.ev)
+    .filter(([,s]) => s === 1)
+    .map(([e]) => e);
+
   let n = 0;
+
   stopAudio();
+
   $("grid").innerHTML = "";
+
   GHOSTS.forEach(g => {
+
     const m = matches(g);
-    if (m) n++;
+
+    if(m) n++;
+
     const d = document.createElement("div");
-    d.className = "g" + (m ? "" : " dim") + (st.done.has(g.n) ? " done" : "");
+
+    d.className =
+      "g" +
+      (m ? "" : " dim") +
+      (st.done.has(g.n) ? " done" : "");
+
     d.title = tr.cross;
-    d.onclick = () => { st.done.has(g.n) ? st.done.delete(g.n) : st.done.add(g.n); render(); };
-    const tags = g.ev.map(e => '<span class="tag' + (found.includes(e) ? ' on' : '') + '">' + tr.ev[e] + '</span>').join("");
-    const fake = g.fake ? '<span class="tag">(' + tr.fake + ': ' + tr.ev[g.fake] + ')</span>' : "";
-    d.innerHTML = '<h3>' + g.n + '</h3><div class="tags">' + tags + fake + '</div><p class="tell">' + g.t[li] + '</p>';
-    if (g.s && g.s.length) {
+
+    d.onclick = () => {
+
+      if(st.done.has(g.n)){
+        st.done.delete(g.n);
+      }else{
+        st.done.add(g.n);
+      }
+
+      render();
+
+    };
+
+    const title = document.createElement("h3");
+    title.textContent = g.n;
+
+    const tags = document.createElement("div");
+    tags.className = "tags";
+
+    g.ev.forEach(e => {
+
+      const tag = document.createElement("span");
+
+      tag.className =
+        "tag" + (found.includes(e) ? " on" : "");
+
+      tag.textContent = tr.ev[e];
+
+      tags.append(tag);
+
+    });
+
+    if(g.fake){
+
+      const fake = document.createElement("span");
+
+      fake.className = "tag";
+      fake.textContent =
+        "(" + tr.fake + ": " + tr.ev[g.fake] + ")";
+
+      tags.append(fake);
+
+    }
+
+    const tell = document.createElement("p");
+
+    tell.className = "tell";
+    tell.textContent = g.t[li];
+
+    d.append(title,tags,tell);
+
+    if(g.s && g.s.length){
+
       const box = document.createElement("div");
+
       box.className = "sounds";
+
       g.s.forEach(s => {
+
         const b = document.createElement("button");
+
         b.className = "snd";
         b.textContent = "🔊 " + s.l[li];
         b.title = tr.play;
-        b.onclick = e => { e.stopPropagation(); playSound(s.f, b); };
+
+        b.onclick = e => {
+          e.stopPropagation();
+          playSound(s.f,b);
+        };
+
         box.append(b);
+
       });
+
       d.append(box);
+
     }
+
     $("grid").append(d);
+
   });
-  $("count").textContent = tr.count(n, GHOSTS.length);
+
+  $("count").textContent = tr.count(n,GHOSTS.length);
+
 }
 
 function applyLang(){
+
   const tr = T();
+
   document.documentElement.lang = lang;
+
   document.title = tr.title;
+
   $("hint").textContent = tr.hint;
   $("t-ev").textContent = tr.evidence;
   $("t-search").textContent = tr.search;
+
   $("q").placeholder = tr.placeholder;
-  $("q").setAttribute("aria-label", tr.search);
+  $("q").setAttribute("aria-label",tr.search);
+
   $("reset").textContent = tr.reset;
-  document.querySelectorAll(".flag").forEach(f => f.classList.toggle("on", f.dataset.l === lang));
+
+  document.querySelectorAll(".flag").forEach(f => {
+
+    f.classList.toggle("on",f.dataset.l === lang);
+
+  });
+
   build();
   render();
+
 }
 
 document.querySelectorAll(".flag").forEach(f => {
+
   f.onclick = () => {
+
     lang = f.dataset.l;
-    try { localStorage.setItem("lang", lang); } catch (e) {}
+
+    try {
+      localStorage.setItem("lang",lang);
+    } catch(e) {}
+
     applyLang();
+
   };
+
 });
 
-$("q").oninput = e => { st.q = e.target.value.trim().toLowerCase(); render(); };
+$("q").oninput = e => {
+
+  st.q = e.target.value.trim().toLowerCase();
+
+  render();
+
+};
 
 $("reset").onclick = () => {
+
   st.ev = {};
   st.q = "";
   st.done.clear();
+
   $("q").value = "";
+
   build();
   render();
+
 };
 
 applyLang();
+
 </script>
+
 </body>
 </html>
