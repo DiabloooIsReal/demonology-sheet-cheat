@@ -47,8 +47,8 @@ main{flex:1;min-width:0}
 <body>
 <header class="top">
   <div class="lang">
+        <button class="flag" data-l="fr" title="Français" aria-label="Français"><svg viewBox="0 0 3 2" preserveAspectRatio="none"><rect width="1" height="2" fill="#0055a4"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ef4135"/></svg></button>
     <button class="flag" data-l="en" title="English" aria-label="English"><svg viewBox="0 0 60 30" preserveAspectRatio="none"><rect width="60" height="30" fill="#012169"/><path d="M0 0L60 30M60 0L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0L60 30M60 0L0 30" stroke="#c8102e" stroke-width="2"/><path d="M30 0V30M0 15H60" stroke="#fff" stroke-width="10"/><path d="M30 0V30M0 15H60" stroke="#c8102e" stroke-width="6"/></svg></button>
-    <button class="flag" data-l="fr" title="Français" aria-label="Français"><svg viewBox="0 0 3 2" preserveAspectRatio="none"><rect width="1" height="2" fill="#0055a4"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ef4135"/></svg></button>
     <button class="flag" data-l="ru" title="Русский" aria-label="Русский"><svg viewBox="0 0 3 2" preserveAspectRatio="none"><rect width="3" height="2" fill="#fff"/><rect y="0.667" width="3" height="0.667" fill="#0039a6"/><rect y="1.333" width="3" height="0.667" fill="#d52b1e"/></svg></button>
   </div>
 </header>
@@ -69,7 +69,7 @@ main{flex:1;min-width:0}
 </div>
 
 <script>
-const LANGS = ["en","fr","ru"];
+const LANGS = ["fr","en","ru"];
 
 const I18N = {
   en:{
@@ -163,24 +163,24 @@ const GHOSTS = [
   "Provoque des hallucinations et chasse plus souvent dans le noir.",
   "Вызывает галлюцинации и чаще охотится в темноте."]},
  {n:"Oni",ev:["Freezing Temperatures","Laser Projector","Spirit Box"],t:[
-  "Can sprint during hunts and manifests more often.",
-  "Peut courir pendant les chasses et se manifeste plus souvent.",
+  "Can sprint from fast-slow & slow-fast during hunts and manifests more often.",
+  "Peut aller de vite-à-lent & lent-à-vite pendant les chasses et se manifeste plus souvent.",
   "Может бегать во время охоты и проявляется чаще."]},
  {n:"Phantom",ev:["EMF Level 5","Prints","Ghost Orb"],t:[
   "Blinks less frequently during hunts and moves faster while invisible.",
   "Cligne moins souvent pendant les chasses et se déplace plus vite lorsqu'il est invisible.",
   "Реже мигает во время охоты и быстрее двигается, будучи невидимым."]},
  {n:"Ravager",ev:["EMF Level 5","Inscription","Spirit Box"],t:[
-  "Can throw multiple objects or form a vortex. Its ghost events leave EMF Level 5 readings.",
-  "Peut lancer plusieurs objets ou former un vortex. Ses événements laissent des relevés EMF niveau 5.",
-  "Может бросать несколько предметов сразу или создавать вихрь. Его события дают показания ЭМП 5 уровня."]},
+  "Can throw multiple objects or form a vortex. Its ghost events leave EMF Level 5 readings. (Makes a laser gun sound when throwing an object)",
+  "Peut lancer plusieurs objets ou former un vortex. Ses événements provoque un EMF niveau 5. (bruit de tir laser quand il balance un objet)",
+  "Может бросать несколько предметов сразу или создавать вихрь. Его события дают показания ЭМП 5 уровня. (Издаёт звук лазерного оружия при броске предмета)"],},
  {n:"Revenant",ev:["EMF Level 5","Freezing Temperatures","Inscription"],t:[
   "Has a short cooldown between hunts, but ends a hunt immediately after killing a hunter.",
   "A un court délai entre les chasses, mais termine une chasse dès qu'il tue un chasseur.",
   "Между охотами делает короткую паузу, но сразу завершает охоту после убийства охотника."]},
  {n:"Shadow",ev:["EMF Level 5","Inscription","Laser Projector"],t:[
   "Changes room temperature only slightly and is less active in well-lit rooms.",
-  "Ne change que légèrement la température de la pièce et est moins actif dans les pièces bien éclairées.",
+  "Ne change que légèrement la température de la pièce et est moins actif dans les pièces éclairées.",
   "Лишь слегка меняет температуру в комнате и менее активен в хорошо освещённых помещениях."]},
  {n:"Siren",ev:["EMF Level 5","Spirit Box","Wither"],t:[
   "Slows hunters in its line of sight. Uses a feminine voice on the Spirit Box and may hum.",
